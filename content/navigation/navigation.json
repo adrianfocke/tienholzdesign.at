@@ -1,0 +1,55 @@
+{
+  "en": {
+    "logo": "Breath & Growth",
+    "links": [
+      {
+        "label": "Home",
+        "fallbackHref": "/"
+      },
+      {
+        "label": "Meine Räume",
+        "fallbackHref": "/spaces"
+      },
+      {
+        "label": "Über mich",
+        "fallbackHref": "/about"
+      },
+      {
+        "label": "Events",
+        "fallbackHref": "/events"
+      }
+    ]
+  },
+  "logoImage": "/uploads/portrait.jpg",
+  "settings": {},
+  "logo": {
+    "logoImage": "",
+    "link": "/",
+    "text_de": "TIEN HOLZ DESIGN",
+    "text_en": "TIEN HOLZ DESIGN"
+  },
+  "links": [
+    {
+      "settings": {},
+      "link": "/about",
+      "text_de": "ÜBER MICH",
+      "text_en": "ABOUT ME"
+    },
+    {
+      "settings": {},
+      "link": "/projects",
+      "text_de": "PROJEKTE",
+      "text_en": "PROJECTS"
+    },
+    {
+      "link": "/designs",
+      "text_de": "DESIGNS",
+      "text_en": "DESIGNS"
+    },
+    {
+      "link": "/contact",
+      "text_de": "KONTAKT",
+      "text_en": "CONTACT"
+    }
+  ]
+}

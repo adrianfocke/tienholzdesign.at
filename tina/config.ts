@@ -1,0 +1,36 @@
+import { defineConfig } from 'tinacms';
+import page from './collections/page';
+import navigation from './collections/navigation';
+import footer from './collections/footer';
+import project from './collections/project';
+import design from './collections/design';
+
+const collections = [page, navigation, footer, project, design];
+
+export default defineConfig({
+  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID,
+  branch: process.env.NEXT_PUBLIC_TINA_BRANCH ||
+    process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF ||
+    process.env.HEAD || 'main',
+  token: process.env.TINA_TOKEN,
+  media: {
+    tina: {
+      publicFolder: 'public',
+      mediaRoot: 'uploads',
+    },
+  },
+  build: {
+    publicFolder: 'public',
+    outputFolder: 'admin',
+  },
+  schema: {
+    collections,
+  },
+  client: {
+    referenceDepth: 1,
+  },
+  cmsCallback: (cms) => {
+    cms.flags.set('branch-switcher', true);
+    return cms;
+  },
+});

@@ -1,0 +1,78 @@
+import { Box, Flex } from '@radix-ui/themes';
+import type { PageBlocksSlideshow } from '../../tina/__generated__/types';
+import type { Ref } from 'react';
+import useSlideshow from './hook';
+import { renderBlocks } from '../../tina/templating/utils';
+import useBreakpoint from '../../utils/hook/useBreakpoint';
+import { findBreakpointValue } from '../../tina/templating/special-fields';
+import styles from './Slideshow.module.css';
+import config from '../../utils/config';
+
+export default function Component(props: PageBlocksSlideshow) {
+  const breakpoint = useBreakpoint();
+  const numberOfSlidesShown = findBreakpointValue(
+    breakpoint,
+    'numberOfSlidesShown',
+  );
+
+  const { slideshow, scrollToSlide, activeSlide } = useSlideshow({
+    numberOfSlides: props?.blocks?.length,
+    numberOfSlidesShown: props.settings?.[numberOfSlidesShown] ?? 1,
+    nextSlideTimeout: Number((props.settings as any)?.nextSlideTimeout) || null,
+  });
+
+  const numberOfSlides = props.blocks?.length ?? 0;
+  const nextSlide = numberOfSlides ? (activeSlide % numberOfSlides) + 1 : 1;
+
+  return (
+    <Box
+      mt={props.settings?.mt ?? '0'}
+      mb={props.settings?.mb ?? config.layout.padding}
+      position={"relative"}
+    >
+      <Flex
+        overflowX='auto'
+        overflowY='hidden'
+        wrap='nowrap'
+        ref={slideshow as Ref<HTMLDivElement>}
+        className={styles.slideScroller}
+      >
+        {props.blocks?.map((slide, index) => (
+          <Box
+            key={index}
+            className={styles.slide}
+          >
+            {renderBlocks(slide, index, {
+              slideshowImageLoading: {
+                isInSlideshow: true,
+                isFirstSlide: index === 0,
+                isActiveSlide: activeSlide === index + 1,
+                isNextSlide: nextSlide === index + 1,
+              },
+            })}
+          </Box>
+        ))}
+      </Flex>
+
+      <Box p={'2'} mt={'-9'} mb={'0'} className={styles.controlsContainer}>
+        <Flex>
+          {props.blocks?.map((block, index) => {
+            const isActive = activeSlide === index + 1;
+            return (
+              <Box
+                onClick={() => {
+                  scrollToSlide(index + 1);
+                }}
+                key={index}
+                mx={'1'}
+                className={`${styles.controlDot} ${
+                  isActive ? styles.controlDotActive : styles.controlDotInactive
+                }`}
+              />
+            );
+          })}
+        </Flex>
+      </Box>
+    </Box>
+  );
+}
