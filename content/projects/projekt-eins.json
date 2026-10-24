@@ -1,4 +1,12 @@
 {
   "name": "Projekt Eins",
-  "image": "/uploads/werkstatt.jpg"
+  "image": "/uploads/werkstatt.jpg",
+  "blocks": [
+    {
+      "content": {
+        "image": "/uploads/werkstatt.jpg"
+      },
+      "_template": "Image"
+    }
+  ]
 }
