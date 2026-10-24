@@ -50,6 +50,11 @@
       "link": "/services",
       "text_de": "Services",
       "text_en": "Services"
+    },
+    {
+      "link": "/contact",
+      "text_de": "CCC",
+      "text_en": "CCC"
     }
   ]
 }
